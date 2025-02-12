@@ -10,8 +10,7 @@ codestral(
   model = Sys.getenv(x = "R_CODESTRAL_MODEL"),
   temperature = as.integer(Sys.getenv(x = "R_CODESTRAL_TEMPERATURE")),
   max_tokens = Sys.getenv(x = "R_CODESTRAL_MAX_TOKENS"),
-  suffix = "",
-  ENDPOINTS = ENDPOINTS
+  suffix = ""
 )
 }
 \arguments{
