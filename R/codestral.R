@@ -35,6 +35,8 @@ codestral <- function(prompt,
                       temperature = as.integer(Sys.getenv(x = "R_CODESTRAL_TEMPERATURE")),
                       max_tokens = Sys.getenv(x = "R_CODESTRAL_MAX_TOKENS"),
                       suffix = "") {
+  ENDPOINTS <- codestral::ENDPOINTS
+
   if (codestral_api_key == "" |
       fim_model == "" | is.na(temperature) | max_tokens == "") {
     stop("Looks like you forgot to run codestral_init() once.")

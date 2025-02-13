@@ -1,1 +1,32 @@
 c:Write a function to compute the sum from 1 to n of 1/i.
+Sure! Below is an R function that computes the sum from 1 to n of 1/i:
+
+```R
+# Define the function to compute the sum from 1 to n of 1/i
+sum_reciprocals <- function(n) {
+  # Initialize the sum to 0
+  total_sum <- 0
+
+  # Loop from 1 to n
+  for (i in 1:n) {
+    # Add 1/i to the total sum
+    total_sum <- total_sum + 1/i
+  }
+
+  # Return the total sum
+  return(total_sum)
+}
+
+# Example usage:
+n <- 5
+result <- sum_reciprocals(n)
+print(result)
+```
+
+In this function:
+- We initialize `total_sum` to 0.
+- We use a `for` loop to iterate from 1 to `n`.
+- In each iteration, we add `1/i` to `total_sum`.
+- Finally, we return the `total_sum`.
+
+You can change the value of `n` to compute the sum for different ranges.
