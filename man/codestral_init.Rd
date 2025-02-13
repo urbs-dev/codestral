@@ -6,19 +6,25 @@
 \usage{
 codestral_init(
   apikey = NULL,
-  model = "codestral-latest",
+  fim_model = "codestral-latest",
+  chat_model = "codestral-latest",
+  mamba_model = "open-codestral-mamba",
   temperature = 0,
   max_tokens = 100
 )
 }
 \arguments{
-\item{apikey}{Your codestral API key}
+\item{apikey}{Your codestral API key.}
 
-\item{model}{The model to use}
+\item{fim_model}{The model to use for FIM.}
 
-\item{temperature}{The temperature to use}
+\item{chat_model}{The model to use for chat.}
 
-\item{max_tokens}{The maximum number of tokens to generate}
+\item{mamba_model}{The model to use for mamba.}
+
+\item{temperature}{The temperature to use.}
+
+\item{max_tokens}{The maximum number of tokens to generate.}
 }
 \description{
 Initialize codestral

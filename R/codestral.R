@@ -1,41 +1,98 @@
 #' Fill in the middle with Codestral
+#'
+#' This function completes a given prompt using the Codestral API. It supports different models
+#' for fill-in-the-middle, chat with Codestral, and chat with Mamba. The function relies on
+#' environment variables for some parameters.
+#'
 #' @param prompt The prompt to complete.
-#' @param api_key Your Codestral API key.
-#' @param model The model to use.
-#' @param temperature The temperature to use.
-#' @param max_tokens The maximum number of tokens to generate.
-#' @param suffix The suffix to use.
-#' @param ENDPOINTS The endpoints to use.
-#' @return The completed text.
+#' @param codestral_api_key The API key to use for accessing Codestral. Defaults to the value of the
+#'   `R_CODESTRAL_APIKEY` environment variable.
+#' @param mistral_api_key The API key to use for accessing Mamba. Defaults to the value of the
+#'   `R_MISTRAL_APIKEY` environment variable.
+#' @param fim_model The model to use for fill-in-the-middle. Defaults to the value of the
+#'   `R_CODESTRAL_FIM_MODEL` environment variable.
+#' @param chat_model The model to use for chat with Codestral. Defaults to the value of the
+#'   `R_CODESTRAL_CHAT_MODEL` environment variable.
+#' @param mamba_model The model to use for chat with Mamba. Defaults to the value of the
+#'   `R_MAMBA_CHAT_MODEL` environment variable.
+#' @param temperature The temperature to use. Defaults to the value of the `R_CODESTRAL_TEMPERATURE`
+#'   environment variable.
+#' @param max_tokens The maximum number of tokens to generate. Defaults to the value of the
+#'   `R_CODESTRAL_MAX_TOKENS` environment variable.
+#' @param suffix The suffix to use. Defaults to an empty string.
+#' @return A character string containing the completed text.
 #' @examples
-#' # codestral(prompt = "Once upon a time")
+#' \dontrun{
+#' codestral(prompt = "Once upon a time")
+#' }
 #' @export
 codestral <- function(prompt,
-                      api_key = Sys.getenv(x = "R_CODESTRAL_APIKEY"),
-                      model = Sys.getenv(x = "R_CODESTRAL_MODEL"),
+                      codestral_api_key = Sys.getenv(x = "R_CODESTRAL_APIKEY"),
+                      mistral_api_key = Sys.getenv(x = "R_MISTRAL_APIKEY"),
+                      fim_model = Sys.getenv(x = "R_CODESTRAL_FIM_MODEL"),
+                      chat_model = Sys.getenv(x = "R_CODESTRAL_CHAT_MODEL"),
+                      mamba_model = Sys.getenv(x = "R_MAMBA_CHAT_MODEL"),
                       temperature = as.integer(Sys.getenv(x = "R_CODESTRAL_TEMPERATURE")),
                       max_tokens = Sys.getenv(x = "R_CODESTRAL_MAX_TOKENS"),
                       suffix = "") {
-
-  if(api_key=="" | model == "" |is.na(temperature) | max_tokens==""){
+  if (codestral_api_key == "" |
+      fim_model == "" | is.na(temperature) | max_tokens == "") {
     stop("Looks like you forgot to run codestral_init() once.")
   }
 
-  # if (is.null(x = suffix)) {
+  isChat <- stringr::str_starts(string = prompt, pattern = "c:")
+  isMamba <- stringr::str_starts(string = prompt, pattern = "m:")
+
+  if (isTRUE(x = isChat)) {
+    api_key <- codestral_api_key
+
+    url <- ENDPOINTS$chatcodestral
+
+    messages <- data.frame(
+      role = c("system", "user"),
+      content = c("You write programs in R language only.", "")
+    )
+
+    messages$content[2] <- prompt
+
+    # Prepare data for request
+    request_body <- list(model = chat_model,
+                         temperature = temperature,
+                         # max_tokens = max_tokens,
+                         messages = messages)
+
+  } else if (isTRUE(x = isMamba)) {
+    url <- ENDPOINTS$chatmistral
+
+    api_key <- mistral_api_key
+
+    messages <- data.frame(
+      role = c("system", "user"),
+      content = c("You write programs in R language only.", "")
+    )
+
+    messages$content[2] <- prompt
+
+    # Prepare data for request
+    request_body <- list(model = chat_model,
+                         temperature = temperature,
+                         # max_tokens = max_tokens,
+                         messages = messages)
+
+  } else {
+    api_key <- codestral_api_key
+
     url <- ENDPOINTS$completion
 
-  # } else {
-  #   url <- ENDPOINTS$chat
-  # }
-
-  # Prepare data for request
-  request_body <- list(
-    model = model,
-    temperature = temperature,
-    max_tokens = max_tokens,
-    prompt = prompt,
-    suffix = suffix
-  )
+    # Prepare data for request
+    request_body <- list(
+      model = fim_model,
+      temperature = temperature,
+      max_tokens = max_tokens,
+      prompt = prompt,
+      suffix = suffix
+    )
+  }
 
   # Add request header
   headers <- c(
@@ -44,13 +101,15 @@ codestral <- function(prompt,
     `Accept` = "application/json"
   )
 
+  body <- jsonlite::toJSON(request_body, auto_unbox = TRUE)
+
   # Sent request
-  response <- httr::POST(
-    url,
-    body = jsonlite::toJSON(request_body, auto_unbox = TRUE),
-    encode = "json",
-    httr::add_headers(.headers = headers)
-  )
+  response <- httr::POST(url,
+                         body = body,
+                         encode = "json",
+                         httr::add_headers(.headers = headers))
+
+  # print(response)
 
   # Check answer status
   if (httr::status_code(response) == 200) {

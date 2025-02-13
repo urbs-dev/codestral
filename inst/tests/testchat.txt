@@ -1,0 +1,1 @@
+c:Write a function to compute the sum from 1 to n of 1/i.

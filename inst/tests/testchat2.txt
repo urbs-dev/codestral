@@ -1,0 +1,55 @@
+m:Write a function to compute the sum from 1 to n of 1/i.
+Sure! Below is an R function that computes the sum from 1 to n of 1/i:
+
+```R
+# Define the function to compute the sum from 1 to n of 1/i
+sum_reciprocals <- function(n) {
+  # Check if n is a positive integer
+  if (!is.numeric(n) || n <= 0 || n != as.integer(n)) {
+    stop("Input must be a positive integer.")
+  }
+
+  # Initialize the sum
+  total_sum <- 0
+
+  # Loop from 1 to n and compute the sum of reciprocals
+  for (i in 1:n) {
+    total_sum <- total_sum + 1/i
+  }
+
+  # Return the result
+  return(total_sum)
+}
+
+# Example usage:
+n <- 5
+result <- sum_reciprocals(n)
+print(result)
+```
+
+This function `sum_reciprocals` takes a positive integer `n` as input and returns the sum of the reciprocals from 1 to `n`. The function includes a check to ensure that the input is a positive integer. You can call this function with any positive integer to get the desired sum.
+
+Optimize it.Sure! The given function can be optimized by using vectorized operations in R, which are generally more efficient than explicit loops. Here's an optimized version of the function:
+
+```R
+# Define the function to compute the sum from 1 to n of 1/i
+sum_reciprocals <- function(n) {
+  # Check if n is a positive integer
+  if (!is.numeric(n) || n <= 0 || n != as.integer(n)) {
+    stop("Input must be a positive integer.")
+  }
+
+  # Compute the sum of reciprocals using vectorized operations
+  total_sum <- sum(1 / 1:n)
+
+  # Return the result
+  return(total_sum)
+}
+
+# Example usage:
+n <- 5
+result <- sum_reciprocals(n)
+print(result)
+```
+
+In this optimized version, the `1 / 1:n` expression creates a vector of reciprocals from 1 to `n`, and the `sum` function computes the sum of this vector. This approach leverages R's vectorized operations for efficiency.

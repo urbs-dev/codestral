@@ -6,8 +6,11 @@
 \usage{
 codestral(
   prompt,
-  api_key = Sys.getenv(x = "R_CODESTRAL_APIKEY"),
-  model = Sys.getenv(x = "R_CODESTRAL_MODEL"),
+  codestral_api_key = Sys.getenv(x = "R_CODESTRAL_APIKEY"),
+  mistral_api_key = Sys.getenv(x = "R_MISTRAL_APIKEY"),
+  fim_model = Sys.getenv(x = "R_CODESTRAL_FIM_MODEL"),
+  chat_model = Sys.getenv(x = "R_CODESTRAL_CHAT_MODEL"),
+  mamba_model = Sys.getenv(x = "R_MAMBA_CHAT_MODEL"),
   temperature = as.integer(Sys.getenv(x = "R_CODESTRAL_TEMPERATURE")),
   max_tokens = Sys.getenv(x = "R_CODESTRAL_MAX_TOKENS"),
   suffix = ""
@@ -16,24 +19,39 @@ codestral(
 \arguments{
 \item{prompt}{The prompt to complete.}
 
-\item{api_key}{Your Codestral API key.}
+\item{codestral_api_key}{The API key to use for accessing Codestral. Defaults to the value of the
+\code{R_CODESTRAL_APIKEY} environment variable.}
 
-\item{model}{The model to use.}
+\item{mistral_api_key}{The API key to use for accessing Mamba. Defaults to the value of the
+\code{R_MISTRAL_APIKEY} environment variable.}
 
-\item{temperature}{The temperature to use.}
+\item{fim_model}{The model to use for fill-in-the-middle. Defaults to the value of the
+\code{R_CODESTRAL_FIM_MODEL} environment variable.}
 
-\item{max_tokens}{The maximum number of tokens to generate.}
+\item{chat_model}{The model to use for chat with Codestral. Defaults to the value of the
+\code{R_CODESTRAL_CHAT_MODEL} environment variable.}
 
-\item{suffix}{The suffix to use.}
+\item{mamba_model}{The model to use for chat with Mamba. Defaults to the value of the
+\code{R_MAMBA_CHAT_MODEL} environment variable.}
 
-\item{ENDPOINTS}{The endpoints to use.}
+\item{temperature}{The temperature to use. Defaults to the value of the \code{R_CODESTRAL_TEMPERATURE}
+environment variable.}
+
+\item{max_tokens}{The maximum number of tokens to generate. Defaults to the value of the
+\code{R_CODESTRAL_MAX_TOKENS} environment variable.}
+
+\item{suffix}{The suffix to use. Defaults to an empty string.}
 }
 \value{
-The completed text.
+A character string containing the completed text.
 }
 \description{
-Fill in the middle with Codestral
+This function completes a given prompt using the Codestral API. It supports different models
+for fill-in-the-middle, chat with Codestral, and chat with Mamba. The function relies on
+environment variables for some parameters.
 }
 \examples{
-# codestral(prompt = "Once upon a time")
+\dontrun{
+codestral(prompt = "Once upon a time")
+}
 }
