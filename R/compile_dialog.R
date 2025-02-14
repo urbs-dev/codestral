@@ -1,3 +1,11 @@
+#' Analyses a prompt to re-buid the dialog
+#'
+#' @param prompt The prompt to analyse
+#'
+#' @return A list with the chatter (mamba or codestral) and the dialog in a data.frame.
+#'
+#' @export
+#'
 compile_dialog <- function(prompt) {
   marker <- list(
     codestralStart = which(x = stringr::str_starts(string = prompt, pattern = "c:")),

@@ -2,6 +2,7 @@
 
 export(codestral)
 export(codestral_init)
+export(compile_dialog)
 export(complete_current_script)
 export(insert_addin)
 importFrom(dplyr,"%>%")
