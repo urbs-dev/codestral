@@ -31,10 +31,6 @@ complete_current_script <- function() {
                                         start = start_[2],
                                         end = length(x = content_))
 
-  # Split the script into prompt and suffix
-  prompt_ <- paste(prompt_, collapse = "\n")
-  suffix <- paste(suffix, collapse = "\n")
-
   ans <- codestral(prompt = prompt_,
                    suffix = suffix,
                    max_tokens = 100)

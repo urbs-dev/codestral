@@ -36,52 +36,46 @@ codestral <- function(prompt,
                       max_tokens = Sys.getenv(x = "R_CODESTRAL_MAX_TOKENS"),
                       suffix = "") {
   ENDPOINTS <- codestral::ENDPOINTS
+  chatter <- "fim"
 
   if (codestral_api_key == "" |
       fim_model == "" | is.na(temperature) | max_tokens == "") {
     stop("Looks like you forgot to run codestral_init() once.")
   }
 
-  isChat <- stringr::str_starts(string = prompt, pattern = "c:")
-  isMamba <- stringr::str_starts(string = prompt, pattern = "m:")
+  isAnyChat <- stringr::str_starts(string = prompt, pattern = "c:") |
+    stringr::str_starts(string = prompt, pattern = "m:")
 
-  if (isTRUE(x = isChat)) {
+  if (any(isAnyChat)) {
+    messages <- data.frame(role = "system", content = "You write programs in R language only.")
+
+    dialog <- compile_dialog(prompt = prompt)
+
+    messages <- rbind.data.frame(messages, dialog$dialog)
+
+    chatter <- dialog$chatter
+
+    # Prepare data for request
+    request_body <- list(model = chat_model,
+                         temperature = temperature,
+                         # max_tokens = max_tokens,
+                         messages = messages)
+  }
+
+  if (chatter == "codestral") {
     api_key <- codestral_api_key
 
     url <- ENDPOINTS$chatcodestral
 
-    messages <- data.frame(
-      role = c("system", "user"),
-      content = c("You write programs in R language only.", "")
-    )
-
-    messages$content[2] <- prompt
-
-    # Prepare data for request
-    request_body <- list(model = chat_model,
-                         temperature = temperature,
-                         # max_tokens = max_tokens,
-                         messages = messages)
-
-  } else if (isTRUE(x = isMamba)) {
+  } else if (chatter == "mamba") {
     url <- ENDPOINTS$chatmistral
 
     api_key <- mistral_api_key
 
-    messages <- data.frame(
-      role = c("system", "user"),
-      content = c("You write programs in R language only.", "")
-    )
+  } else if (chatter == "fim") {
+    prompt_ <- paste(prompt, collapse = "\n")
+    suffix <- paste(suffix, collapse = "\n")
 
-    messages$content[2] <- prompt
-
-    # Prepare data for request
-    request_body <- list(model = chat_model,
-                         temperature = temperature,
-                         # max_tokens = max_tokens,
-                         messages = messages)
-
-  } else {
     api_key <- codestral_api_key
 
     url <- ENDPOINTS$completion
@@ -91,7 +85,7 @@ codestral <- function(prompt,
       model = fim_model,
       temperature = temperature,
       max_tokens = max_tokens,
-      prompt = prompt,
+      prompt = prompt_,
       suffix = suffix
     )
   }
@@ -127,5 +121,5 @@ codestral <- function(prompt,
     )
   }
 
-  return(result$choices$message$content)
+  return(paste("\na:", result$choices$message$content))
 }
