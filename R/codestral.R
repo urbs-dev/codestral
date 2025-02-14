@@ -121,7 +121,7 @@ codestral <- function(prompt,
     )
   }
 
-  if (isAnyChat) {
+  if (any(isAnyChat)) {
     return(paste("\na:", result$choices$message$content))
   } else {
     return(result$choices$message$content)
