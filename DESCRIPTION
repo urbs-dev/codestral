@@ -1,6 +1,6 @@
 Package: codestral
 Title: Fill in you code with Codestral
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: 
     person("Marc", "Grossouvre", , "marc@grossouvre.fr", role = c("aut", "cre"))
 Description: This package creates an addin that can be used to fill in the middle some R code.
