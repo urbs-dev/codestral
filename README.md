@@ -35,7 +35,11 @@ The current script should start with `c:`. Position your cursor at the end of yo
 
 Just replace `c:` with `m:`.
 
-ATTENTION : At present, only one prompt followed by one answer is taken in charge. If you re-activate the addin after an answer, the previous prompt+answer is used as a single prompt. 
+The answer will start with `a:`.
+
+You can continue the conversation starting a new line with `c:` or `m:`.
+
+Or you can regenerate a new answer just re-activating the Addin.
 
 ## Faster using keyboard shortcut
 
