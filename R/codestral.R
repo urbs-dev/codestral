@@ -43,8 +43,18 @@ codestral <- function(prompt,
     stop("Looks like you forgot to run codestral_init() once.")
   }
 
+  # detect chat vs autocompletion
   isAnyChat <- stringr::str_starts(string = prompt, pattern = "c:") |
     stringr::str_starts(string = prompt, pattern = "m:")
+
+  # detect if any file is refered to
+  anyFile <- stringr::str_starts(string = prompt, pattern = "ff:")
+
+  if(any(anyFile)){
+    prompt <- include_file(prompt = prompt, anyFile = anyFile)
+  }
+
+  # print(prompt)
 
   if (any(isAnyChat)) {
     messages <- data.frame(role = "system", content = "You write programs in R language only.")

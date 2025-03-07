@@ -1,2 +1,0 @@
-m: Quelle est la valeur
-a: Je comprends que vous souhaitez que je vous aide avec un programme en R, mais il semble que votre message soit incomplet. Pourriez-vous préciser ce que vous souhaitez que je fasse en R ? Par exemple, si vous avez une question spécifique sur un concept en R, un problème de programmation ou si vous avez besoin d'un exemple de code, n'hésitez pas à me le faire savoir. Je suis là pour vous aider ! de pi ?

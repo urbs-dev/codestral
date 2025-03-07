@@ -41,6 +41,14 @@ You can continue the conversation starting a new line with `c:` or `m:`.
 
 Or you can regenerate a new answer just re-activating the Addin.
 
+## Including files
+
+If you wish to include a text file (.R, .Rmd ...) in your prompt, just make sure that the file is in the current working directory or one of its subdirectories and add a line in your prompt starting by "ff:" and followed by the file name :
+
+"ff:my_file.R"
+
+This will trigger the insertion of the content of `my_file.R` where the instruction has been placed
+
 ## Faster using keyboard shortcut
 
 In order to define a keyboard shortcut for this addin, in Rstudio, choose the 
