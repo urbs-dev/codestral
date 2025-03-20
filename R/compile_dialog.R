@@ -7,6 +7,8 @@
 #' @export
 #'
 compile_dialog <- function(prompt) {
+  ind <- NULL
+
   marker <- list(
     codestralStart = which(x = stringr::str_starts(string = prompt, pattern = "c:")),
     mambaStart = which(x = stringr::str_starts(string = prompt, pattern = "m:")),
@@ -42,15 +44,15 @@ compile_dialog <- function(prompt) {
   if (breaks$ind[1] > 1) {
     # Ignore what is before the start of the dialog
 
-    prompt <- tail(x = prompt, -(breaks$ind[1] - 1))
+    prompt <- utils::tail(x = prompt, -(breaks$ind[1] - 1))
   }
 
   while ((breaks$type[nBreaks] == "a") & (nBreaks >0)) {
     print("Answer ignored")
     # the user expects a new answer to the same question
-    prompt <- head(x = prompt, -(length(x = prompt) - breaks$ind[nBreaks] + 1))
+    prompt <- utils::head(x = prompt, -(length(x = prompt) - breaks$ind[nBreaks] + 1))
 
-    breaks <- head(x = breaks, -1)
+    breaks <- utils::head(x = breaks, -1)
 
     nBreaks <- nrow(x = breaks)
   }

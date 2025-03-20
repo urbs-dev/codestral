@@ -1,6 +1,7 @@
 test_that("include_file works when files are found", {
   # Create temporary files for testing
   temp_file1 <- tempfile(fileext = ".txt", tmpdir = ".")
+  temp_file2 <- tempfile(fileext = ".txt", tmpdir = ".")
 
   writeLines("This is file 1 content.", temp_file1)
   writeLines("This is file 2 content.", temp_file2)

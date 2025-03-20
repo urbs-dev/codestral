@@ -57,7 +57,7 @@ codestral <- function(prompt,
   # print(prompt)
 
   if (any(isAnyChat)) {
-    messages <- data.frame(role = "system", content = "You write programs in R language only.")
+    messages <- data.frame(role = "system", content = "You write programs in R language only. You adopt a proper coding approach by strictly naming all the functions' parameters when calling any function with named parameters even when calling nested functions, by being straighforward in your answers.")
 
     dialog <- compile_dialog(prompt = prompt)
 

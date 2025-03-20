@@ -14,7 +14,8 @@ Imports:
     jsonlite,
     magrittr,
     rstudioapi,
-    stringr
+    stringr,
+    utils
 Depends: 
     R (>= 3.5)
 LazyData: true
