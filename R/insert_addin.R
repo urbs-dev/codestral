@@ -1,4 +1,3 @@
-
 #' Insert the addin
 #'
 #' This function inserts a Codestral fim into the current script.
@@ -10,3 +9,4 @@ insert_addin <- function() {
   rstudioapi::insertText(text = ans)
   invisible()
 }
+

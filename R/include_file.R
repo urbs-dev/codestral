@@ -16,10 +16,7 @@ include_file <- function(prompt, anyFile) {
     ind <- which(anyFile)
 
     for (i in ind) {
-      file <- stringr::str_extract(
-        string = prompt[i],
-        pattern = "(?<=ff:).+?(?= |$)"
-      )
+      file <- stringr::str_extract(string = prompt[i], pattern = "(?<=ff:).+?(?= |$)")
 
       foundFile <- FALSE
       filePath <- ""
@@ -28,20 +25,16 @@ include_file <- function(prompt, anyFile) {
 
       dir <- dirAll[5]
 
-      for (dir in dirAll) {
-        if (stringr::str_ends(string = dir, pattern = file)) {
-          foundFile <- TRUE
-          filePath <- dir
-          break
-        }
-      }
+      detectFile <- stringr::str_ends(string = dirAll, pattern = file)
 
-      if (foundFile) {
-        prompt <- c(
-          prompt[1:(i - 1)],
-          readLines(filePath),
-          prompt[(i + 1):length(prompt)]
-        )
+      if(!any(detectFile)){
+        warning(paste(file, "has not been detected"))
+      } else {
+        filePath <- dirAll[which(detectFile)[1]]
+
+        message(paste(file, "has been detected as", filePath))
+
+        prompt <- c(prompt[1:(i - 1)], readLines(filePath), prompt[(i + 1):length(prompt)])
       }
     }
   }

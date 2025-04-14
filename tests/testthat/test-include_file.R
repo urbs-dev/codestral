@@ -6,21 +6,19 @@ test_that("include_file works when files are found", {
   writeLines("This is file 1 content.", temp_file1)
   writeLines("This is file 2 content.", temp_file2)
 
-  prompt <- c(
-    "This is the first line.",
-    paste0("ff:", temp_file1),
-    "This is the last line."
-  )
+  prompt <- c("This is the first line.",
+              paste0("ff:", temp_file1),
+              "This is the last line.")
 
   anyFile <- c(FALSE, TRUE, FALSE)
 
-  expected <- c(
-    "This is the first line.",
-    "This is file 1 content.",
-    "This is the last line."
-  )
+  expected <- c("This is the first line.",
+                "This is file 1 content.",
+                "This is the last line.")
 
-  result <- include_file(prompt, anyFile)
+  mess <- capture_message({
+    result <- include_file(prompt, anyFile)
+  })
 
   expect_equal(result, expected)
 
@@ -29,15 +27,15 @@ test_that("include_file works when files are found", {
 })
 
 test_that("include_file works when files are not found", {
-  prompt <- c(
-    "This is the first line.",
-    "ff:non_existent_file.txt",
-    "This is the last line."
-  )
+  prompt <- c("This is the first line.",
+              "ff:non_existent_file.txt",
+              "This is the last line.")
 
   anyFile <- c(FALSE, TRUE, FALSE)
 
-  result <- include_file(prompt, anyFile)
+  expect_warning({
+    result <- include_file(prompt, anyFile)
+  })
 
   expect_equal(result, prompt)
 })
@@ -68,7 +66,9 @@ test_that("include_file works with multiple files", {
     "This is the last line."
   )
 
-  result <- include_file(prompt, anyFile)
+  mess <- capture_messages({
+    result <- include_file(prompt, anyFile)
+  })
 
   expect_equal(result, expected)
 
@@ -78,11 +78,10 @@ test_that("include_file works with multiple files", {
 })
 
 test_that("include_file handles no files to include", {
-  prompt <- c(
-    "This is the first line.", "
+  prompt <- c("This is the first line.",
+              "
               This is the second line.",
-    "This is the last line."
-  )
+              "This is the last line.")
 
   anyFile <- c(FALSE, FALSE, FALSE)
 
