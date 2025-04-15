@@ -15,26 +15,29 @@ include_file <- function(prompt, anyFile) {
   if (any(anyFile)) {
     ind <- which(anyFile)
 
-    for (i in ind) {
-      file <- stringr::str_extract(string = prompt[i], pattern = "(?<=ff:).+?(?= |$)")
+    message(paste("Files detected at indeces", ind, ".\n"))
 
-      foundFile <- FALSE
+    files <- sapply(X = ind, FUN = \(i) {
+      stringr::str_extract(string = prompt[i], pattern = "(?<=ff:).+?(?= |$)")
+    })
+
+    dirAll <- dir(recursive = TRUE, full.names = TRUE)
+
+    for (i in 1:length(ind)) {
       filePath <- ""
+      ff <- files[i]
+      ii <- ind[i]
 
-      dirAll <- dir(recursive = TRUE, full.names = TRUE)
+      detectFile <- stringr::str_ends(string = dirAll, pattern = ff)
 
-      dir <- dirAll[5]
-
-      detectFile <- stringr::str_ends(string = dirAll, pattern = file)
-
-      if(!any(detectFile)){
-        warning(paste(file, "has not been detected"))
+      if (!any(detectFile)) {
+        warning(paste(ff, "has not been detected"))
       } else {
         filePath <- dirAll[which(detectFile)[1]]
 
-        message(paste(file, "has been detected as", filePath))
+        message(paste(ff, "has been detected as", filePath))
 
-        prompt <- c(prompt[1:(i - 1)], readLines(filePath), prompt[(i + 1):length(prompt)])
+        prompt <- c(prompt[1:(ii - 1)], readLines(filePath), prompt[(ii + 1):length(prompt)])
       }
     }
   }

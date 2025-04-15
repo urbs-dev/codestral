@@ -1,7 +1,11 @@
 test_that("include_file works when files are found", {
   # Create temporary files for testing
-  temp_file1 <- tempfile(fileext = ".txt", tmpdir = ".")
-  temp_file2 <- tempfile(fileext = ".txt", tmpdir = ".")
+  temp_file1 <- tempfile(pattern = "testinclude",
+                         fileext = ".txt",
+                         tmpdir = ".")
+  temp_file2 <- tempfile(pattern = "testinclude",
+                         fileext = ".txt",
+                         tmpdir = ".")
 
   writeLines("This is file 1 content.", temp_file1)
   writeLines("This is file 2 content.", temp_file2)
@@ -16,14 +20,19 @@ test_that("include_file works when files are found", {
                 "This is file 1 content.",
                 "This is the last line.")
 
-  mess <- capture_message({
-    result <- include_file(prompt, anyFile)
+  expect_message({
+    expect_message({
+      result <- include_file(prompt, anyFile)
+    })
   })
 
   expect_equal(result, expected)
 
   # Clean up temporary files
-  file.remove(temp_file1)
+  allFiles <- dir()
+  tempfiles <- stringr::str_detect(allFiles, "testinclude")
+
+  file.remove(allFiles[tempfiles])
 })
 
 test_that("include_file works when files are not found", {
@@ -33,8 +42,10 @@ test_that("include_file works when files are not found", {
 
   anyFile <- c(FALSE, TRUE, FALSE)
 
-  expect_warning({
-    result <- include_file(prompt, anyFile)
+  expect_message({
+    expect_condition({
+      result <- include_file(prompt, anyFile)
+    }, regexp = "not been detected")
   })
 
   expect_equal(result, prompt)
@@ -66,7 +77,7 @@ test_that("include_file works with multiple files", {
     "This is the last line."
   )
 
-  mess <- capture_messages({
+  suppressMessages({
     result <- include_file(prompt, anyFile)
   })
 
