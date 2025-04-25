@@ -3,7 +3,6 @@
 #' This function splits the current script into two parts: the part before the cursor and the part after the cursor.
 #'
 #' @return A character vector containing the two parts of the script.
-#' @export
 #'
 complete_current_script <- function() {
   # Get the current script path
@@ -32,8 +31,7 @@ complete_current_script <- function() {
                                         end = length(x = content_))
 
   ans <- codestral(prompt = prompt_,
-                   suffix = suffix,
-                   max_tokens = 100)
+                   suffix = suffix)
 
   ans
 }

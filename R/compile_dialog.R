@@ -4,8 +4,6 @@
 #'
 #' @return A list with the chatter (mamba or codestral) and the dialog in a data.frame.
 #'
-#' @export
-#'
 compile_dialog <- function(prompt) {
   ind <- NULL
 

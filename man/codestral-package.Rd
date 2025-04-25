@@ -3,12 +3,12 @@
 \docType{package}
 \name{codestral-package}
 \alias{codestral-package}
-\title{codestral: Fill in you code with Codestral}
+\title{codestral: Chat and FIM with Codestral}
 \description{
-This package creates an addin that can be used to fill in the middle some R code.
+This package creates an addin that can be used to fill in the middle and chat with latest Mistral AI models for coding.
 }
 \author{
-\strong{Maintainer}: Marc Grossouvre \email{marc@grossouvre.fr}
+\strong{Maintainer}: Marc Grossouvre \email{marc@grossouvre.fr} (URBS company [cph, fnd])
 
 }
 \keyword{internal}

@@ -10,7 +10,6 @@
 #'
 #' The result is returned.
 #'
-#'@export
 include_file <- function(prompt, anyFile) {
   if (any(anyFile)) {
     ind <- which(anyFile)

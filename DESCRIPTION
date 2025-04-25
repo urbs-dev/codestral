@@ -1,9 +1,10 @@
 Package: codestral
-Title: Fill in you code with Codestral
+Title: Chat and FIM with Codestral
 Version: 0.0.2
 Authors@R: 
-    person("Marc", "Grossouvre", , "marc@grossouvre.fr", role = c("aut", "cre"))
-Description: This package creates an addin that can be used to fill in the middle some R code.
+    person("Marc", "Grossouvre", , "marc@grossouvre.fr", role = c("aut", "cre"),
+    person("URBS company", role = c("cph", "fnd")))
+Description: This package creates an addin that can be used to fill in the middle and chat with latest Mistral AI models for coding.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

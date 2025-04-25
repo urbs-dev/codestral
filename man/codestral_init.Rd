@@ -5,27 +5,49 @@
 \title{Initialize codestral}
 \usage{
 codestral_init(
-  apikey = NULL,
+  mistral_apikey = Sys.getenv(x = "R_MISTRAL_APIKEY"),
+  codestral_apikey = Sys.getenv(x = "R_CODESTRAL_APIKEY"),
   fim_model = "codestral-latest",
   chat_model = "codestral-latest",
   mamba_model = "open-codestral-mamba",
   temperature = 0,
-  max_tokens = 100
+  max_tokens_FIM = 100,
+  max_tokens_chat = "",
+  role_content = NULL
 )
 }
 \arguments{
-\item{apikey}{Your codestral API key.}
+\item{mistral_apikey, codestral_apikey}{A string giving your codestral API key.}
 
-\item{fim_model}{The model to use for FIM.}
+\item{fim_model}{A string giving the model to use for FIM.}
 
-\item{chat_model}{The model to use for chat.}
+\item{chat_model}{A string giving the model to use for Codestral chat.}
 
-\item{mamba_model}{The model to use for mamba.}
+\item{mamba_model}{A string giving the model to use for Codestral Mamba chat.}
 
-\item{temperature}{The temperature to use.}
+\item{temperature}{An integer giving the temperature to use.}
 
-\item{max_tokens}{The maximum number of tokens to generate.}
+\item{max_tokens_FIM, max_tokens_chat}{Integers giving the maximum
+number of tokens to generate for each of these operations.}
+
+\item{role_content}{A role to assign to the model. Default is "You write
+programs in R language only. You adopt a proper coding approach by strictly
+naming all the functions' parameters when calling any function with named
+parameters even when calling nested functions, by being straighforward in
+your answers."}
+}
+\value{
+Invisible \code{0}.
 }
 \description{
-Initialize codestral
+Create environment variables for operationg FIM and chat.
+}
+\details{
+The most important paremeter here is the \code{apikey} without which
+\code{codestral} can not work.
+
+To start with, beginners may keep default values for other parameters. It
+seems sound to use the latest models of each type. However with time, the
+user may be willing to customize \code{temperature}, \code{max_tokens_FIM}, \code{max_tokens_chat} and
+\code{role_content} for his/her own needs.
 }

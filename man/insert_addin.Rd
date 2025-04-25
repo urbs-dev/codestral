@@ -2,13 +2,13 @@
 % Please edit documentation in R/insert_addin.R
 \name{insert_addin}
 \alias{insert_addin}
-\title{Insert the addin}
+\title{Insert the model's answer}
 \usage{
 insert_addin()
 }
 \value{
-\code{NULL} (invisible).
+\code{0} (invisible).
 }
 \description{
-This function inserts a Codestral fim into the current script.
+This function inserts a Codestral FIM into the current script.
 }

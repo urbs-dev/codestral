@@ -1,4 +1,5 @@
 Name: Codestral code completion
-Description: Inserts Codestral answer at current position
+Description: Inserts Codestral/Mamba answer at current position
 Binding: insert_addin
 Interactive: true
+
