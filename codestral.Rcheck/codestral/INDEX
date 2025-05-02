@@ -1,0 +1,8 @@
+ENDPOINTS               Endpoints for the Codestral API.
+codestral               Fill in the middle with Codestral
+codestral_init          Initialize codestral
+compile_dialog          Analyses a prompt to re-buid the dialog
+complete_current_script
+                        Fill in the middle or complete
+include_file            Read and include files in a prompt
+insert_addin            Insert the model's answer

@@ -1,0 +1,146 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# codestral
+
+<!-- badges: start -->
+
+[![Lifecycle:
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+<!-- badges: end -->
+
+Thanks to an appropriate Rstudio addin, this package allows prompting
+[Mistra AI](https://mistral.ai/) models using their API for fill in the
+middle (FIM) and chat in Rstudio. Installing this package creates an
+Addin in Rstudio that allows a direct and simple use of the Mistral AI
+API.
+
+For FIM, the [Codestral](https://mistral.ai/news/codestral) model is
+used.
+
+For chatting, the user may use either Codestral or [Codestral
+Mamba](https://mistral.ai/news/codestral-mamba).
+
+## Installation
+
+You should first get 2 API keys from the Mistral AI
+[Plateforme](https://mistral.ai/news/la-plateforme):
+
+- one general Mistral AI API key (menu `API` in La Plateforme).
+- one Codestral API key (menu `Codestral` in La Plateforme).
+
+You can install the development version of codestral from
+[GitHub](https://github.com/urbs-dev/codestral) with:
+
+``` r
+# install.packages("pak")
+pak::pak("urbs-dev/codestral")
+```
+
+Restart your session to activate the addin.
+
+**The addin is now visible in the Rstudio `Addins` drop down list as
+`Codestral code completion`.**
+
+## Set up for usage in Rstudio
+
+The package needs to be initialized, especially to get your API key.
+
+``` r
+library(codestral)
+## basic example code
+
+# replace *** with your API key
+# codestral_init(apikey = "********************************")
+```
+
+This function also sets some parameters for using the Mistral AI API
+properly. Once you get familiar with the package, you may customize
+those parameters.
+
+## A simple example to start with
+
+Open a new text file and type: `"m: Hello world !"`. Leave your cursor
+at the end of the line.
+
+In the Rstudio toolbar, look for the `Addins` drop down menu and click
+on `Codestral code completion`.
+
+The model’s answer should appear in your text file starting with `a:`.
+
+In your console note that the function `codestral:::insert_addin()` has
+been called.
+
+## Using codestral package
+
+### Fill in the middle (FIM)
+
+Place your cursor where you want the FIM code to appear and look for
+`Codestral code completion` in the `Addins` drop down menu of `RStudio`.
+
+When you click on the addin, the codestral answer is inserted. In the
+request, the prompt is the part of the script before the cursor, the
+suffix is the part of the script after the cursor. The answer is limited
+to `max_tokens$FIM` as set in `codestral_init`. In case you feel the FIM
+is incomplete, you may just activate the addin again.
+
+### Chat
+
+- To prompt the Codestral model: The current script should start with
+  `c:`. Place your cursor at the end of your question. Activate the
+  addin as for FIM. The answer is inserted from the line after your
+  cursor position.
+
+- To prompt the Mamba model: Just replace `c:` with `m:`.
+
+In both cases, the answer will start with `a:`.
+
+You can follow up the dialog starting a new line with `c:` or `m:` after
+the model’s answer.
+
+### Including files content
+
+If you wish to include a text file (.R, .Rmd …) in your prompt, just
+make sure that the file is in the current working directory or one of
+its subdirectories (for instance in the same project) and add a line in
+your prompt starting by “ff:” and followed by the file name :
+`"ff:my_file.R"`
+
+Behind the scene, `ff:` triggers the insertion of the content of
+`my_file.R` at the location where the instruction has been placed.
+
+Example:
+
+    m: Write the necessary unit tests for the following functions
+    ff:my_fun_file.R
+
+## Make it more efficient using keyboard shortcut
+
+In order to define a keyboard shortcut for this addin, in Rstudio,
+choose the menu `Tools/Addins/Browse Addins...` In the pop-up window,
+click on the `Keyboard shortcuts` button. in the new window, double
+click on the table’s cell at row `Codestral code completion` and column
+`Shortcut`. Insert your shortcut.
+
+You can now replace default usage by your shortcut.
+
+Additionnaly you may add the initialization step in an `.Rprofile` so
+that initialization is performed at any session start.
+
+## Information about your data
+
+Keep in mind that the point of this addin is to communicate with an API.
+No AI model is installed locally. Therefore every time you activate the
+addin, the content of the file where your cursor is, will be sent to
+Mistral AI. If `ff:my_file.R` is present in this file, then the content
+of `my_file.R` is also sent to Mistral AI.
+
+The other information sent to Mistral AI is the content of the
+environment variables created by `codestral_init()`.
+
+**Nothing else is sent to Mistral AI and nothing is sent to a third
+party.**
+
+Note that if you are using the free services of Mistral AI, the data you
+sent may be used by them for training their future models. Visit their
+website for more information.
