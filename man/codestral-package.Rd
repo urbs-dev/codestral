@@ -8,7 +8,12 @@
 Create an addin in Rstudio to do fill-in-the-middle (FIM) and chat with latest Mistral AI models for coding, codestral and mamba.
 }
 \author{
-\strong{Maintainer}: Marc Grossouvre \email{marc@grossouvre.fr} (URBS company [cph, fnd])
+\strong{Maintainer}: Marc Grossouvre \email{marcgrossouvre@urbs.fr}
+
+Other contributors:
+\itemize{
+  \item  URBS company \email{contact@rubs.fr} [copyright holder, funder]
+}
 
 }
 \keyword{internal}

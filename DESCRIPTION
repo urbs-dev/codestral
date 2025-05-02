@@ -1,9 +1,10 @@
 Package: codestral
 Title: Chat and FIM with Codestral
 Version: 0.0.1
-Authors@R: 
-    person("Marc", "Grossouvre", email = "marcgrossouvre@urbs.fr", role = c("aut", "cre"),
-    person("URBS company", email = "contact@urbs.fr", role = c("cph", "fnd")))
+Authors@R: c(
+    person("Marc", "Grossouvre", , "marcgrossouvre@urbs.fr", role = c("aut", "cre")),
+    person(, "URBS company", , "contact@rubs.fr", role = c("cph", "fnd"))
+  )
 Description: Create an addin in Rstudio to do fill-in-the-middle (FIM) and chat with latest Mistral AI models for coding, codestral and mamba.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -18,7 +19,7 @@ Imports:
     stringr,
     utils
 Depends: 
-    R (>= 3.5)
+    R (>= 4.1)
 LazyData: true
 Suggests: 
     testthat (>= 3.0.0)
