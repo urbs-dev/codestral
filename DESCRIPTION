@@ -1,6 +1,6 @@
 Package: codestral
 Title: Chat and FIM with Codestral
-Version: 0.0.2
+Version: 0.0.1
 Authors@R: 
     person("Marc", "Grossouvre", , "marc@grossouvre.fr", role = c("aut", "cre"),
     person("URBS company", role = c("cph", "fnd")))
