@@ -5,7 +5,7 @@
 \alias{codestral-package}
 \title{codestral: Chat and FIM with Codestral}
 \description{
-This package creates an addin that can be used to fill in the middle and chat with latest Mistral AI models for coding.
+Create an addin in Rstudio to do fill-in-the-middle (FIM) and chat with latest Mistral AI models for coding, codestral and mamba.
 }
 \author{
 \strong{Maintainer}: Marc Grossouvre \email{marc@grossouvre.fr} (URBS company [cph, fnd])
