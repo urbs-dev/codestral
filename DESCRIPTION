@@ -4,7 +4,7 @@ Version: 0.0.1
 Authors@R: 
     person("Marc", "Grossouvre", , "marc@grossouvre.fr", role = c("aut", "cre"),
     person("URBS company", role = c("cph", "fnd")))
-Description: This package creates an addin that can be used to fill in the middle and chat with latest Mistral AI models for coding.
+Description: Create an addin in Rstudio to do fill-in-the-middle (FIM) and chat with latest Mistral AI models for coding, codestral and mamba.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
