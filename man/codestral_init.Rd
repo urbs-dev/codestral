@@ -17,7 +17,12 @@ codestral_init(
 )
 }
 \arguments{
-\item{mistral_apikey, codestral_apikey}{A string giving your codestral API key.}
+\item{mistral_apikey, codestral_apikey}{The API keys to use for accessing
+Codestral Mamba and Codestral. Default to the value of the
+\code{R_MISTRAL_APIKEY}, \code{R_CODESTRAL_APIKEY} environment variable. Note that
+the name of the variable \code{mistra_apikey} is purposely not mentionning
+Codestra Mamba because this key can be use for other Mistral AI models
+(except Codestral).}
 
 \item{fim_model}{A string giving the model to use for FIM.}
 
@@ -30,7 +35,7 @@ codestral_init(
 \item{max_tokens_FIM, max_tokens_chat}{Integers giving the maximum
 number of tokens to generate for each of these operations.}
 
-\item{role_content}{A role to assign to the model. Default is "You write
+\item{role_content}{A role to assign to the system Default is "You write
 programs in R language only. You adopt a proper coding approach by strictly
 naming all the functions' parameters when calling any function with named
 parameters even when calling nested functions, by being straighforward in
@@ -43,8 +48,8 @@ Invisible \code{0}.
 Create environment variables for operationg FIM and chat.
 }
 \details{
-The most important paremeter here is the \code{apikey} without which
-\code{codestral} can not work.
+The most important paremeters here are the \code{..._apikey} parameters
+without which the Mistral AI API can not be used.
 
 To start with, beginners may keep default values for other parameters. It
 seems sound to use the latest models of each type. However with time, the

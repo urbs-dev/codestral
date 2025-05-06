@@ -2,14 +2,25 @@
 #'
 #' Create environment variables for operationg FIM and chat.
 #'
-#' @param mistral_apikey,codestral_apikey A string giving your codestral API key.
+#' @param mistral_apikey,codestral_apikey The API keys to use for accessing
+#'   Codestral Mamba and Codestral. Default to the value of the
+#'   `R_MISTRAL_APIKEY`, `R_CODESTRAL_APIKEY` environment variable. Note that
+#'   the name of the variable `mistra_apikey` is purposely not mentionning
+#'   Codestra Mamba because this key can be use for other Mistral AI models
+#'   (except Codestral).
+#'
 #' @param fim_model A string giving the model to use for FIM.
+#'
 #' @param chat_model A string giving the model to use for Codestral chat.
+#'
 #' @param mamba_model A string giving the model to use for Codestral Mamba chat.
+#'
 #' @param temperature An integer giving the temperature to use.
+#'
 #' @param max_tokens_FIM,max_tokens_chat Integers giving the maximum
 #'   number of tokens to generate for each of these operations.
-#' @param role_content A role to assign to the model. Default is "You write
+#'
+#' @param role_content A role to assign to the system Default is "You write
 #'   programs in R language only. You adopt a proper coding approach by strictly
 #'   naming all the functions' parameters when calling any function with named
 #'   parameters even when calling nested functions, by being straighforward in
@@ -17,8 +28,8 @@
 #'
 #' @returns Invisible `0`.
 #'
-#' @details The most important paremeter here is the `apikey` without which
-#' `codestral` can not work.
+#' @details The most important paremeters here are the `..._apikey` parameters
+#'  without which the Mistral AI API can not be used.
 #'
 #' To start with, beginners may keep default values for other parameters. It
 #' seems sound to use the latest models of each type. However with time, the
