@@ -1,12 +1,13 @@
 #' Analyses a prompt to re-buid the dialog
 #'
-#' @param prompt The prompt to analyse
+#' @param prompt The prompt to analyse. A vector of strings.
 #'
-#' @return A list with the chatter (mamba or codestral) and the dialog in a data.frame.
+#' @return A list with the chatter (Codestral or Codestral Mamba) and the dialog in a data.frame whith columns `role` and `content`.
 #'
 compile_dialog <- function(prompt) {
   ind <- NULL
 
+  # Find indeces of markers for each marker
   marker <- list(
     codestralStart = which(x = stringr::str_starts(string = prompt, pattern = "c:")),
     mambaStart = which(x = stringr::str_starts(string = prompt, pattern = "m:")),
@@ -14,10 +15,12 @@ compile_dialog <- function(prompt) {
     systemStart = which(x = stringr::str_starts(string = prompt, pattern = "s:"))
   )
 
+  # Which markers have been found among the 4.
   anyMarker <- which(x = sapply(X = marker, FUN = \(x) {
     length(x = x) > 0
   }))
 
+  # Create a data frame type/ind with markers and their indeces in increasing order of indeces
   breaks <- lapply(X = anyMarker, FUN = \(k) {
     if (k == 1) {
       res <- data.frame(type = "c", ind = marker[[k]])
@@ -31,23 +34,34 @@ compile_dialog <- function(prompt) {
 
     res
   }) %>%
-    do.call(what = rbind.data.frame)
-
-  breaks  %<>% dplyr::arrange(ind)
+    do.call(what = rbind.data.frame) %>%
+    dplyr::arrange(ind)
 
   nBreaks <- nrow(x = breaks)
 
+  if (nBreaks == 0) {
+    stop("Malformed request")
+  }
+
   # print(breaks)
 
-  if (breaks$ind[1] > 1) {
+  if ( breaks$ind[1] > 1) {
     # Ignore what is before the start of the dialog
 
     prompt <- utils::tail(x = prompt, -(breaks$ind[1] - 1))
+
+    breaks$ind <- breaks$ind -(breaks$ind[1] - 1)
   }
 
-  while ((breaks$type[nBreaks] == "a") & (nBreaks >0)) {
-    print("Answer ignored")
-    # the user expects a new answer to the same question
+
+  if (breaks$type[nBreaks] == "a") {
+    message(
+      "No new prompt since the last answer. The last answer(s) are ignored and a fresh answer is generated from the last prompt."
+    )
+  }
+
+  while ((breaks$type[nBreaks] == "a") & (nBreaks > 0)) {
+    # the user expects a new answer to the same question, remove the last answers from the dialog
     prompt <- utils::head(x = prompt, -(length(x = prompt) - breaks$ind[nBreaks] + 1))
 
     breaks <- utils::head(x = breaks, -1)
@@ -55,16 +69,31 @@ compile_dialog <- function(prompt) {
     nBreaks <- nrow(x = breaks)
   }
 
-  if(nBreaks==0){
+  if (nBreaks == 0) {
     stop("Malformed request")
   }
 
   chatter <- "codestral"
 
-  if (breaks$type[nBreaks] == "m") {
+  nc <- length(x = marker[[1]])
+  nm <- length(x = marker[[2]])
+
+  maxc <- 0
+  maxm <- 0
+
+  if (nc > 0) {
+    maxc <- max(marker[[1]])
+  }
+
+  if (nm > 0) {
+    maxm <- max(marker[[2]])
+  }
+
+  if (maxm > maxc) {
     chatter <- "mamba"
   }
 
+  # rebuild the dialog block by block
   content <- sapply(X = 1:nrow(x = breaks), FUN = \(k) {
     type_ <- breaks$type[k]
     ind_ <- breaks$ind[k]
@@ -77,7 +106,10 @@ compile_dialog <- function(prompt) {
 
     res <- paste(prompt[ind_:ind_next], collapse = "\n")
 
-    res <- stringr::str_sub(string = res, start = 3, end = -1)
+    # Remove the marker
+    res <- stringr::str_sub(string = res,
+                            start = 3,
+                            end = -1)
   })
 
   role <- ifelse(

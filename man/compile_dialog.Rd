@@ -7,10 +7,10 @@
 compile_dialog(prompt)
 }
 \arguments{
-\item{prompt}{The prompt to analyse}
+\item{prompt}{The prompt to analyse. A vector of strings.}
 }
 \value{
-A list with the chatter (mamba or codestral) and the dialog in a data.frame.
+A list with the chatter (Codestral or Codestral Mamba) and the dialog in a data.frame whith columns \code{role} and \code{content}.
 }
 \description{
 Analyses a prompt to re-buid the dialog
