@@ -21,9 +21,7 @@ test_that("include_file works when files are found", {
                 "This is the last line.")
 
   expect_message({
-    expect_message({
-      result <- include_file(prompt, anyFile)
-    })
+    result <- include_file(prompt, anyFile)
   })
 
   expect_equal(result, expected)
@@ -34,7 +32,7 @@ test_that("include_file works when files are found", {
 
   filestoremove <- allFiles[tempfiles]
 
-  for(ff in filestoremove){
+  for (ff in filestoremove) {
     unlink(ff)
   }
 
@@ -48,11 +46,9 @@ test_that("include_file works when files are not found", {
 
   anyFile <- c(FALSE, TRUE, FALSE)
 
-  expect_message({
-    expect_condition({
-      result <- include_file(prompt, anyFile)
-    }, regexp = "not been detected")
-  })
+  expect_condition({
+    result <- include_file(prompt, anyFile)
+  }, regexp = "not been detected")
 
   expect_equal(result, prompt)
 })

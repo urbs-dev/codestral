@@ -14,7 +14,7 @@ include_file <- function(prompt, anyFile) {
   if (any(anyFile)) {
     ind <- which(anyFile)
 
-    message(paste("Files detected at indeces", ind, ".\n"))
+    # message(paste("Files detected at indeces", ind, ".\n"))
 
     files <- sapply(X = ind, FUN = \(i) {
       stringr::str_extract(string = prompt[i], pattern = "(?<=ff:).+?(?= |$)")
