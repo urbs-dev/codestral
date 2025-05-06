@@ -78,7 +78,7 @@ been called.
 Place your cursor where you want the FIM code to appear and look for
 `Codestral code completion` in the `Addins` drop down menu of `RStudio`.
 
-When you click on the addin, the codestral answer is inserted. In the
+When you click on the addin, the Codestral answer is inserted. In the
 request, the prompt is the part of the script before the cursor, the
 suffix is the part of the script after the cursor. The answer is limited
 to `max_tokens$FIM` as set in `codestral_init`. In case you feel the FIM
@@ -91,7 +91,7 @@ is incomplete, you may just activate the addin again.
   addin as for FIM. The answer is inserted from the line after your
   cursor position.
 
-- To prompt the Mamba model: Just replace `c:` with `m:`.
+- To prompt the Codestral Mamba model: Just replace `c:` with `m:`.
 
 In both cases, the answer will start with `a:`.
 
@@ -113,6 +113,22 @@ Example:
 
     m: Write the necessary unit tests for the following functions
     ff:my_fun_file.R
+
+### Modify the assistant behaviour.
+
+By default, when initializing the package, the assistant role is
+described as “You write programs in R language only. You adopt a proper
+coding approach by strictly naming all the functions’ parameters when
+calling any function with named parameters even when calling nested
+functions, by being straighforward in your answers.” This can be
+modified when initializing the package with the parameter `role_content`
+of `codestral_init`. However, the user may find it usefull to modify
+this role temporarily. This can be achieved with the marker `s:`.
+
+Example:
+
+    s: you are an sql developer.
+    m: How do joints work?
 
 ## Make it more efficient using keyboard shortcut
 
