@@ -2,13 +2,12 @@
 #'
 #' This function completes a given prompt using the Codestral API. It supports
 #' different models for fill-in-the-middle, chat with Codestral, and chat with
-#' Mamba. The function relies on environment variables for some parameters.
+#' Codestral Mamba. The function relies on environment variables for some
+#' parameters.
 #'
 #' @param prompt The prompt to complete.
 #'
-#' @param mistral_apikey,codestral_apikey The API key to use for accessing
-#'   Mamba/Codesstral. Defaults to the value of the `R_MISTRAL_APIKEY`,
-#'   `R_CODESTRAL_APIKEY` environment variable.
+#' @inheritParams codestral_init
 #'
 #' @param fim_model The model to use for fill-in-the-middle. Defaults to the
 #'   value of the `R_CODESTRAL_FIM_MODEL` environment variable.
@@ -16,7 +15,7 @@
 #' @param chat_model The model to use for chat with Codestral. Defaults to the
 #'   value of the `R_CODESTRAL_CHAT_MODEL` environment variable.
 #'
-#' @param mamba_model The model to use for chat with Mamba. Defaults to the
+#' @param mamba_model The model to use for chat with Codestral Mamba. Defaults to the
 #'   value of the `R_MAMBA_CHAT_MODEL` environment variable.
 #'
 #' @param temperature The temperature to use. Defaults to the value of the
@@ -63,7 +62,7 @@ codestral <- function(prompt,
   isAnyChat <- stringr::str_starts(string = prompt, pattern = "c:") |
     stringr::str_starts(string = prompt, pattern = "m:")
 
-  # detect if any file is refered to
+  # detect if lines refer to files
   anyFile <- stringr::str_starts(string = prompt, pattern = "ff:")
 
   if (any(anyFile)) {
@@ -73,13 +72,13 @@ codestral <- function(prompt,
   # print(prompt)
 
   if (any(isAnyChat)) {
-    messages <- data.frame(role = "system", content = role_content)
-
     dialog <- compile_dialog(prompt = prompt)
 
-    messages <- rbind.data.frame(messages, dialog$dialog)
-
     chatter <- dialog$chatter
+
+    systemdescription <- data.frame(role = "system", content = role_content)
+
+    messages <- rbind.data.frame(systemdescription, dialog$dialog)
 
     # Prepare data for request
     if (is.null(max_tokens_chat)) {

@@ -21,9 +21,12 @@ codestral(
 \arguments{
 \item{prompt}{The prompt to complete.}
 
-\item{mistral_apikey, codestral_apikey}{The API key to use for accessing
-Mamba/Codesstral. Defaults to the value of the \code{R_MISTRAL_APIKEY},
-\code{R_CODESTRAL_APIKEY} environment variable.}
+\item{mistral_apikey, codestral_apikey}{The API keys to use for accessing
+Codestral Mamba and Codestral. Default to the value of the
+\code{R_MISTRAL_APIKEY}, \code{R_CODESTRAL_APIKEY} environment variable. Note that
+the name of the variable \code{mistra_apikey} is purposely not mentionning
+Codestra Mamba because this key can be use for other Mistral AI models
+(except Codestral).}
 
 \item{fim_model}{The model to use for fill-in-the-middle. Defaults to the
 value of the \code{R_CODESTRAL_FIM_MODEL} environment variable.}
@@ -31,7 +34,7 @@ value of the \code{R_CODESTRAL_FIM_MODEL} environment variable.}
 \item{chat_model}{The model to use for chat with Codestral. Defaults to the
 value of the \code{R_CODESTRAL_CHAT_MODEL} environment variable.}
 
-\item{mamba_model}{The model to use for chat with Mamba. Defaults to the
+\item{mamba_model}{The model to use for chat with Codestral Mamba. Defaults to the
 value of the \code{R_MAMBA_CHAT_MODEL} environment variable.}
 
 \item{temperature}{The temperature to use. Defaults to the value of the
@@ -53,5 +56,6 @@ A character string containing the completed text.
 \description{
 This function completes a given prompt using the Codestral API. It supports
 different models for fill-in-the-middle, chat with Codestral, and chat with
-Mamba. The function relies on environment variables for some parameters.
+Codestral Mamba. The function relies on environment variables for some
+parameters.
 }
