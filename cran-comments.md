@@ -25,3 +25,5 @@ I have clarified the documentation about both models and their API keys: the key
 I have updated the README to include the description of the marker `s:` to temporarily modify the assistant behaviour.
 
 I have included a series of unit tests for `compile_dialog()`. 
+
+
