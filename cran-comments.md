@@ -1,6 +1,6 @@
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 2 note
 
 ## Following Benjamin Altman recommendations
 
@@ -9,6 +9,7 @@ DESCRIPTION file:
 in order to stick to the Mistral AI names, other occurences of Mamba in the doc have been 
 replaced with Codestral Mamba.
 * Regarding references, I have added links to the Mistral AI API documentation and to the models documentation (these are in the README too).
+* I have added fields Date/URL/BugReports
 
 ## Information messages
 
@@ -24,6 +25,6 @@ I have clarified the documentation about both models and their API keys: the key
 
 I have updated the README to include the description of the marker `s:` to temporarily modify the assistant behaviour.
 
-I have included a series of unit tests for `compile_dialog()`. 
+I have included a series of unit tests for `compile_dialog()` and adjusted the function itself to handle nicely exotic behaviours.
 
 

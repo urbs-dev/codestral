@@ -7,6 +7,14 @@
 \description{
 Create an addin in 'Rstudio' to do fill-in-the-middle (FIM) and chat with latest Mistral AI models for coding, 'Codestral' and 'Codestral Mamba'. For more details about 'Mistral AI API': \url{https://docs.mistral.ai/getting-started/quickstart/} and \url{https://docs.mistral.ai/api/}. For more details about 'Codestral' model: \url{https://mistral.ai/news/codestral}; about 'Codestral Mamba': \url{https://mistral.ai/news/codestral-mamba}.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://urbs-dev.github.io/codestral/}
+  \item Report bugs at \url{https://github.com/urbs-dev/codestral/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Marc Grossouvre \email{marcgrossouvre@urbs.fr}
 
