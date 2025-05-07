@@ -1,6 +1,7 @@
 Package: codestral
 Title: Chat and FIM with 'Codestral'
 Version: 0.0.1
+Date: 2025-05-07
 Authors@R: c(
     person("Marc", "Grossouvre", , "marcgrossouvre@urbs.fr", role = c("aut", "cre")),
     person(, "URBS company", , "contact@rubs.fr", role = c("cph", "fnd"))
@@ -24,3 +25,5 @@ LazyData: true
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+URL: https://urbs-dev.github.io/codestral/
+BugReports: https://github.com/urbs-dev/codestral/issues
