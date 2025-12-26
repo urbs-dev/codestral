@@ -49,8 +49,8 @@ codestral <- function(prompt,
   chatter <- "fim"
 
   if (mistral_apikey == "" |
-      fim_model == "" |
-      is.na(temperature) | max_tokens_FIM == "") {
+    fim_model == "" |
+    is.na(temperature) | max_tokens_FIM == "") {
     stop("Looks like you forgot to run codestral_init() once.")
   }
 
@@ -67,6 +67,16 @@ codestral <- function(prompt,
 
   if (any(anyFile)) {
     prompt <- include_file(prompt = prompt, anyFile = anyFile)
+  }
+
+  if (detect_package()) {
+    cat("Package has been detected, include R files.")
+
+    Rfiles <- inventory_Rfiles()
+
+    for (ff in Rfiles$file_path) {
+      prompt <- c(readLines(ff), prompt[1:length(prompt)])
+    }
   }
 
   # print(prompt)
@@ -101,12 +111,10 @@ codestral <- function(prompt,
     apikey <- codestral_apikey
 
     url <- ENDPOINTS$chatcodestral
-
   } else if (chatter == "mamba") {
     url <- ENDPOINTS$chatmistral
 
     apikey <- mistral_apikey
-
   } else if (chatter == "fim") {
     prompt_ <- paste(prompt, collapse = "\n")
     suffix <- paste(suffix, collapse = "\n")
@@ -140,9 +148,10 @@ codestral <- function(prompt,
 
   # Sent request
   response <- httr::POST(url,
-                         body = body,
-                         encode = "json",
-                         httr::add_headers(.headers = headers))
+    body = body,
+    encode = "json",
+    httr::add_headers(.headers = headers)
+  )
 
   # print(response)
 
@@ -150,7 +159,6 @@ codestral <- function(prompt,
   if (httr::status_code(response) == 200) {
     content <- httr::content(response, "text", encoding = "utf8")
     result <- jsonlite::fromJSON(content)
-
   } else {
     stop(
       "Error during the request: ",
