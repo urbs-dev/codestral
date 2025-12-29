@@ -81,6 +81,8 @@ codestral <- function(prompt,
     }
 
     for (ff in Rfiles$file_path) {
+      prompt <- c(paste("Content of file", path, "\n"), prompt)
+
       filecontent <- c(
         "\n",
         paste("Content of file", ff, "\n"),
@@ -91,8 +93,6 @@ codestral <- function(prompt,
       prompt <- c(filecontent, prompt)
     }
   }
-
-  # print(prompt)
 
   if (any(isAnyChat)) {
     dialog <- compile_dialog(prompt = prompt)
