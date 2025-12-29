@@ -80,12 +80,15 @@ codestral <- function(prompt,
       Rfiles <- Rfiles[!stringr::str_detect(string = Rfiles$file_path, pattern = path), ]
     }
 
-    # print Rfiles neatly
-    # print(Rfiles)
-    # print(path)
-
     for (ff in Rfiles$file_path) {
-      prompt <- c(readLines(ff), prompt[1:length(prompt)])
+      filecontent <- c(
+        "\n",
+        paste("Content of file", ff, "\n"),
+        readLines(ff),
+        "\n"
+      )
+
+      prompt <- c(filecontent, prompt)
     }
   }
 
