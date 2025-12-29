@@ -6,6 +6,8 @@
 \usage{
 codestral(
   prompt,
+  suffix = "",
+  path = NULL,
   mistral_apikey = Sys.getenv(x = "R_MISTRAL_APIKEY"),
   codestral_apikey = Sys.getenv(x = "R_CODESTRAL_APIKEY"),
   fim_model = Sys.getenv(x = "R_CODESTRAL_FIM_MODEL"),
@@ -14,12 +16,13 @@ codestral(
   temperature = as.integer(Sys.getenv(x = "R_CODESTRAL_TEMPERATURE")),
   max_tokens_FIM = Sys.getenv(x = "R_CODESTRAL_MAX_TOKENS_FIM"),
   max_tokens_chat = Sys.getenv(x = "R_CODESTRAL_MAX_TOKENS_CHAT"),
-  role_content = Sys.getenv(x = "R_CODESTRAL_ROLE_CONTENT"),
-  suffix = ""
+  role_content = Sys.getenv(x = "R_CODESTRAL_ROLE_CONTENT")
 )
 }
 \arguments{
 \item{prompt}{The prompt to complete.}
+
+\item{suffix}{The suffix to use. Defaults to an empty string.}
 
 \item{mistral_apikey, codestral_apikey}{The API keys to use for accessing
 Codestral Mamba and Codestral. Default to the value of the
@@ -47,8 +50,6 @@ variables.}
 
 \item{role_content}{The role content to use. Defaults to the value of the
 \code{R_CODESTRAL_ROLE_CONTENT} environment variable.}
-
-\item{suffix}{The suffix to use. Defaults to an empty string.}
 }
 \value{
 A character string containing the completed text.

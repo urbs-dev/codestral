@@ -22,17 +22,23 @@ complete_current_script <- function() {
   prompt_ <- content_[1:start_[1]]
   suffix <- content_[start_[1]:length(x = content_)]
 
-  prompt_[start_[1]] <- stringr::str_sub(string = content_[start_[1]],
-                                         start = 1,
-                                         end = start_[2] - 1)
+  prompt_[start_[1]] <- stringr::str_sub(
+    string = content_[start_[1]],
+    start = 1,
+    end = start_[2] - 1
+  )
 
-  suffix[start_[1]] <- stringr::str_sub(string = content_[start_[1]],
-                                        start = start_[2],
-                                        end = length(x = content_))
+  suffix[start_[1]] <- stringr::str_sub(
+    string = content_[start_[1]],
+    start = start_[2],
+    end = length(x = content_)
+  )
 
-  ans <- codestral(prompt = prompt_,
-                   suffix = suffix)
+  ans <- codestral(
+    prompt = prompt_,
+    suffix = suffix,
+    path = normalizePath(path = path)
+  )
 
   ans
 }
-

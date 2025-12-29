@@ -35,6 +35,8 @@
 #'
 #' @export
 codestral <- function(prompt,
+                      suffix = "",
+                      path = NULL,
                       mistral_apikey = Sys.getenv(x = "R_MISTRAL_APIKEY"),
                       codestral_apikey = Sys.getenv(x = "R_CODESTRAL_APIKEY"),
                       fim_model = Sys.getenv(x = "R_CODESTRAL_FIM_MODEL"),
@@ -43,8 +45,7 @@ codestral <- function(prompt,
                       temperature = as.integer(Sys.getenv(x = "R_CODESTRAL_TEMPERATURE")),
                       max_tokens_FIM = Sys.getenv(x = "R_CODESTRAL_MAX_TOKENS_FIM"),
                       max_tokens_chat = Sys.getenv(x = "R_CODESTRAL_MAX_TOKENS_CHAT"),
-                      role_content = Sys.getenv(x = "R_CODESTRAL_ROLE_CONTENT"),
-                      suffix = "") {
+                      role_content = Sys.getenv(x = "R_CODESTRAL_ROLE_CONTENT")) {
   ENDPOINTS <- codestral::ENDPOINTS
   chatter <- "fim"
 
@@ -73,6 +74,15 @@ codestral <- function(prompt,
     cat("Package has been detected, include R files.")
 
     Rfiles <- inventory_Rfiles()
+
+    if (!is.null(path)) {
+      # remove path from Rfiles
+      Rfiles <- Rfiles[!stringr::str_detect(string = Rfiles$file_path, pattern = path), ]
+    }
+
+    # print Rfiles neatly
+    # print(Rfiles)
+    # print(path)
 
     for (ff in Rfiles$file_path) {
       prompt <- c(readLines(ff), prompt[1:length(prompt)])
