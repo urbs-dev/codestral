@@ -7,6 +7,10 @@
 #'
 #' @param prompt The prompt to complete.
 #'
+#' @param suffix The suffix to use. Defaults to an empty string.
+#'
+#' @param path The path to the current file. Defaults to `NULL`.
+#'
 #' @inheritParams codestral_init
 #'
 #' @param fim_model The model to use for fill-in-the-middle. Defaults to the
@@ -29,7 +33,6 @@
 #' @param role_content The role content to use. Defaults to the value of the
 #'   `R_CODESTRAL_ROLE_CONTENT` environment variable.
 #'
-#' @param suffix The suffix to use. Defaults to an empty string.
 #'
 #' @return A character string containing the completed text.
 #'
@@ -47,6 +50,7 @@ codestral <- function(prompt,
                       max_tokens_chat = Sys.getenv(x = "R_CODESTRAL_MAX_TOKENS_CHAT"),
                       role_content = Sys.getenv(x = "R_CODESTRAL_ROLE_CONTENT")) {
   ENDPOINTS <- codestral::ENDPOINTS
+  allmarkers <- codestral::ALLMARKERS
   chatter <- "fim"
 
   if (mistral_apikey == "" |
@@ -60,37 +64,21 @@ codestral <- function(prompt,
   }
 
   # detect chat vs autocompletion
-  isAnyChat <- stringr::str_starts(string = prompt, pattern = "c:") |
-    stringr::str_starts(string = prompt, pattern = "m:")
+  isAnyChat <- stringr::str_starts(string = prompt, pattern = allmarkers$marker[1]) |
+    stringr::str_starts(string = prompt, pattern = allmarkers$marker[2])
 
   # detect if lines refer to files
-  anyFile <- stringr::str_starts(string = prompt, pattern = "ff:")
+  anyFile <- stringr::str_starts(string = prompt, pattern = allmarkers$marker[5])
 
   if (any(anyFile)) {
     prompt <- include_file(prompt = prompt, anyFile = anyFile)
   }
 
   if (detect_package()) {
-    cat("Package has been detected, include R files.")
+    prompt <- include_package_files(prompt = prompt, path = path)
 
-    Rfiles <- inventory_Rfiles()
-
-    if (!is.null(path)) {
-      # remove path from Rfiles
-      Rfiles <- Rfiles[!stringr::str_detect(string = Rfiles$file_path, pattern = path), ]
-
-      prompt <- c(paste("# Content of file", path), "", prompt)
-
-    }
-
-    for (ff in Rfiles$file_path) {
-      filecontent <- c(
-        paste("# Content of file", ff, ""),
-        readLines(ff),
-        ""
-      )
-
-      prompt <- c(filecontent, prompt)
+    if (any(isAnyChat)) {
+      prompt <- c(allmarkers$marker[1], prompt)
     }
   }
 
@@ -159,7 +147,11 @@ codestral <- function(prompt,
 
   body <- jsonlite::toJSON(request_body, auto_unbox = TRUE)
 
-  # print(body)
+  # if in debug mode, print the request
+  if (Sys.getenv(x = "R_CODESTRAL_DEBUG") == "TRUE") {
+    message("Prompt")
+    print(prompt)
+  }
 
   # Sent request
   response <- httr::POST(url,

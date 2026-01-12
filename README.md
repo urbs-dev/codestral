@@ -100,6 +100,8 @@ the model’s answer.
 
 ### Including files content
 
+#### Include the content of specific files in the prompt
+
 If you wish to include a text file (.R, .Rmd …) in your prompt, just
 make sure that the file is in the current working directory or one of
 its subdirectories (for instance in the same project) and add a line in
@@ -113,6 +115,13 @@ Example:
 
     m: Write the necessary unit tests for the following functions
     ff:my_fun_file.R
+
+#### Include the content of all R files in the prompt
+
+In case you are developing an R package, it makes sense to include all R files 
+in the prompt as a context. This functionality is automated and detecting 
+whether you are in a package environment (detection of a DESCRIPTION file)
+triggers an inclusion of all R files.
 
 ### Modify the assistant behaviour.
 

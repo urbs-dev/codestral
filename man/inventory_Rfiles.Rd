@@ -2,7 +2,7 @@
 % Please edit documentation in R/inventory_Rfiles.R
 \name{inventory_Rfiles}
 \alias{inventory_Rfiles}
-\title{This function returns a data frame with the file names and paths of all R files in the current directory.}
+\title{Inventory R files in the current directory}
 \usage{
 inventory_Rfiles()
 }
@@ -14,4 +14,5 @@ This function returns a data frame with the file names and paths of all R files 
 }
 \examples{
 inventory_Rfiles()
+
 }

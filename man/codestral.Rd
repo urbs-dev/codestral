@@ -24,11 +24,13 @@ codestral(
 
 \item{suffix}{The suffix to use. Defaults to an empty string.}
 
+\item{path}{The path to the current file. Defaults to \code{NULL}.}
+
 \item{mistral_apikey, codestral_apikey}{The API keys to use for accessing
 Codestral Mamba and Codestral. Default to the value of the
 \code{R_MISTRAL_APIKEY}, \code{R_CODESTRAL_APIKEY} environment variable. Note that
 the name of the variable \code{mistra_apikey} is purposely not mentionning
-Codestra Mamba because this key can be use for other Mistral AI models
+Codestral Mamba because this key can be use for other Mistral AI models
 (except Codestral).}
 
 \item{fim_model}{The model to use for fill-in-the-middle. Defaults to the

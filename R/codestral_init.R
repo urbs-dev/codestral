@@ -6,7 +6,7 @@
 #'   Codestral Mamba and Codestral. Default to the value of the
 #'   `R_MISTRAL_APIKEY`, `R_CODESTRAL_APIKEY` environment variable. Note that
 #'   the name of the variable `mistra_apikey` is purposely not mentionning
-#'   Codestra Mamba because this key can be use for other Mistral AI models
+#'   Codestral Mamba because this key can be use for other Mistral AI models
 #'   (except Codestral).
 #'
 #' @param fim_model A string giving the model to use for FIM.
@@ -60,6 +60,7 @@ codestral_init <- function(mistral_apikey = Sys.getenv(x = "R_MISTRAL_APIKEY"),
   Sys.setenv(R_CODESTRAL_TEMPERATURE = temperature)
   Sys.setenv(R_CODESTRAL_MAX_TOKENS_FIM = max_tokens_FIM)
   Sys.setenv(R_CODESTRAL_MAX_TOKENS_CHAT = max_tokens_chat)
+  Sys.setenv(R_CODESTRAL_DEBUG = FALSE)
 
   if (is.null(x = role_content)) {
     role_content <- "You write programs in R language only. You adopt a proper coding approach by strictly naming all the functions' parameters when calling any function with named parameters even when calling nested functions, by being straighforward in your answers."
