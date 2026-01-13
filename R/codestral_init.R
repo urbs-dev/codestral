@@ -36,6 +36,22 @@
 #' user may be willing to customize `temperature`, `max_tokens_FIM`, `max_tokens_chat` and
 #' `role_content` for his/her own needs.
 #'
+#' This function creates the following environment variables using `Sys.setenv()`:
+#'
+#' \itemize{
+#'   \item{R_MISTRAL_APIKEY}
+#'   \item{R_CODESTRAL_APIKEY}
+#'   \item{R_CODESTRAL_FIM_MODEL}
+#'   \item{R_CODESTRAL_CHAT_MODEL}
+#'   \item{R_CODESTRAL_MAMBA_MODEL}
+#'   \item{R_CODESTRAL_TEMPERATURE}
+#'   \item{R_CODESTRAL_MAX_TOKENS_FIM}
+#'   \item{R_CODESTRAL_MAX_TOKENS_CHAT}
+#'   \item{R_CODESTRAL_DEBUG}
+#'   \item{R_CODESTRAL_DETECT_PACKAGE}
+#'   \item{R_CODESTRAL_ROLE_CONTENT}
+#' }
+#'
 #' @export
 codestral_init <- function(mistral_apikey = Sys.getenv(x = "R_MISTRAL_APIKEY"),
                            codestral_apikey = Sys.getenv(x = "R_CODESTRAL_APIKEY"),
@@ -61,6 +77,7 @@ codestral_init <- function(mistral_apikey = Sys.getenv(x = "R_MISTRAL_APIKEY"),
   Sys.setenv(R_CODESTRAL_MAX_TOKENS_FIM = max_tokens_FIM)
   Sys.setenv(R_CODESTRAL_MAX_TOKENS_CHAT = max_tokens_chat)
   Sys.setenv(R_CODESTRAL_DEBUG = FALSE)
+  Sys.setenv(R_CODESTRAL_DETECT_PACKAGE = TRUE)
 
   if (is.null(x = role_content)) {
     role_content <- "You write programs in R language only. You adopt a proper coding approach by strictly naming all the functions' parameters when calling any function with named parameters even when calling nested functions, by being straighforward in your answers."
