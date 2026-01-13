@@ -55,4 +55,20 @@ To start with, beginners may keep default values for other parameters. It
 seems sound to use the latest models of each type. However with time, the
 user may be willing to customize \code{temperature}, \code{max_tokens_FIM}, \code{max_tokens_chat} and
 \code{role_content} for his/her own needs.
+
+This function creates the following environment variables using \code{Sys.setenv()}:
+
+\itemize{
+\item{R_MISTRAL_APIKEY}
+\item{R_CODESTRAL_APIKEY}
+\item{R_CODESTRAL_FIM_MODEL}
+\item{R_CODESTRAL_CHAT_MODEL}
+\item{R_CODESTRAL_MAMBA_MODEL}
+\item{R_CODESTRAL_TEMPERATURE}
+\item{R_CODESTRAL_MAX_TOKENS_FIM}
+\item{R_CODESTRAL_MAX_TOKENS_CHAT}
+\item{R_CODESTRAL_DEBUG}
+\item{R_CODESTRAL_DETECT_PACKAGE}
+\item{R_CODESTRAL_ROLE_CONTENT}
+}
 }

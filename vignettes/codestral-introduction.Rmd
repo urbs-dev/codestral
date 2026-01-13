@@ -1,8 +1,11 @@
 ---
-output: github_document
+title: "codestral-introduction"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{codestral-introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -50,8 +53,7 @@ The package needs to be initialized, especially to get your API key.
 library(codestral)
 ## basic example code
 
-# replace *** with your API key
-# codestral_init(apikey = "********************************")
+# codestral_init(mistral_apikey = "your-api-key-here", codestral_apikey = "your_codestral-api-key-here")
 ```
 
 This function also sets some parameters for using the Mistral AI API properly. Once you get familiar with the package, you may customize those parameters.
@@ -88,7 +90,7 @@ In both cases, the answer will start with `a:`.
 
 You can follow up the dialog starting a new line with `c:` or `m:` after the model's answer.
 
-### Including files content
+### Include chosen files content
 
 If you wish to include a text file (.R, .Rmd ...) in your prompt, just make sure that the file is in the current working directory or one of its subdirectories (for instance in the same project) and add a line in your prompt starting by "ff:" and followed by the file name : `"ff:my_file.R"`
 
@@ -96,19 +98,23 @@ Behind the scene, `ff:` triggers the insertion of the content of `my_file.R` at 
 
 Example:
 ```
-m: Write the necessary unit tests for the following functions
-ff:my_fun_file.R
+# m: Write the necessary unit tests for the following functions
+# ff:my_fun_file.R
 ```
 
-### Modify the assistant behaviour.
+### Include all R files while developing R extensions (packages)
+
+If you are developing a package, you may want to include all R files in the current working directory and its subdirectories. This is the default behaviour. If you want to disable this feature, you can set the environment variable to `FALSE` with the function `allow_detect_package(FALSE)`.
+
+### Modify the assistant behaviour (role).
 
 By default, when initializing the package, the assistant role is described as "You write programs in R language only. You adopt a proper coding approach by strictly naming all the functions' parameters when calling any function with named parameters even when calling nested functions, by being straighforward in your answers." This can be modified when initializing the package with the parameter `role_content` of `codestral_init`. 
 However, the user may find it usefull to modify this role temporarily. This can be achieved with the marker `s:`.
 
 Example:
 ```
-s: you are an sql developer.
-m: How do joints work?
+# s: you are an sql developer.
+# m: How do joints work?
 ```
 
 ## Make it more efficient using keyboard shortcut

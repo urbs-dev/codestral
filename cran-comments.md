@@ -14,7 +14,7 @@ Status: 2 NOTEs
 
 ### DESCRIPTION file
 
-* I have added single quoted for the softwares 'Codestral' and 'Codestral Mamba' as well a 'Mistrai AI API'.
+* I have added single quotes for the softwares 'Codestral' and 'Codestral Mamba' as well a 'Mistrai AI API'.
 in order to stick to the Mistral AI names, other occurences of Mamba in the documentation have been 
 replaced with Codestral Mamba.
 

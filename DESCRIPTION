@@ -23,7 +23,10 @@ Depends:
     R (>= 4.1)
 LazyData: true
 Suggests: 
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 URL: https://urbs-dev.github.io/codestral/
 BugReports: https://github.com/urbs-dev/codestral/issues
+VignetteBuilder: knitr
