@@ -2,16 +2,24 @@
 <url><loc>/404.html</loc></url>
 <url><loc>/LICENSE-text.html</loc></url>
 <url><loc>/LICENSE.html</loc></url>
+<url><loc>/articles/codestral-introduction.html</loc></url>
+<url><loc>/articles/index.html</loc></url>
 <url><loc>/authors.html</loc></url>
 <url><loc>/index.html</loc></url>
+<url><loc>/reference/ALLMARKERS.html</loc></url>
 <url><loc>/reference/ENDPOINTS.html</loc></url>
+<url><loc>/reference/allow_detect_package.html</loc></url>
 <url><loc>/reference/codestral-package.html</loc></url>
 <url><loc>/reference/codestral.html</loc></url>
 <url><loc>/reference/codestral_init.html</loc></url>
 <url><loc>/reference/compile_dialog.html</loc></url>
 <url><loc>/reference/complete_current_script.html</loc></url>
+<url><loc>/reference/debug_mode.html</loc></url>
+<url><loc>/reference/detect_package.html</loc></url>
 <url><loc>/reference/include_file.html</loc></url>
+<url><loc>/reference/include_package_files.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
 <url><loc>/reference/insert_addin.html</loc></url>
+<url><loc>/reference/inventory_Rfiles.html</loc></url>
 </urlset>
 

@@ -6,3 +6,5 @@
 ^cran-comments\.md$
 ^docs$
 ^\.github$
+^doc$
+^Meta$

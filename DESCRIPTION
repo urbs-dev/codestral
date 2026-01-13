@@ -1,6 +1,6 @@
 Package: codestral
 Title: Chat and FIM with 'Codestral'
-Version: 1.0.0.9003
+Version: 0.0.1.9003
 Date: 2025-05-07
 Authors@R: c(
     person("Marc", "Grossouvre", , "marcgrossouvre@urbs.fr", role = c("aut", "cre")),
@@ -23,7 +23,10 @@ Depends:
     R (>= 4.1)
 LazyData: true
 Suggests: 
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 URL: https://urbs-dev.github.io/codestral/
 BugReports: https://github.com/urbs-dev/codestral/issues
+VignetteBuilder: knitr
