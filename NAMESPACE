@@ -3,7 +3,6 @@
 export(allow_detect_package)
 export(codestral)
 export(codestral_init)
-export(debug_mode)
 export(detect_package)
 export(include_package_files)
 export(insert_addin)
