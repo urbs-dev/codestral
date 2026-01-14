@@ -7,7 +7,6 @@
 #' @details When the debug mode is activated, the function `codestral()` will
 #'   print the request body and the response body.
 #'
-#' @export
 debug_mode <- function(debug = TRUE) {
   Sys.setenv(R_CODESTRAL_DEBUG = debug)
 

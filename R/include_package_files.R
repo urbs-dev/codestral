@@ -14,11 +14,18 @@ include_package_files <- function(prompt, path) {
 
   Rfiles <- inventory_Rfiles()
 
+  # in debug mode, print Rfiles and path
+  if (Sys.getenv(x = "R_CODESTRAL_DEBUG") == "TRUE") {
+    message("Rfiles and path")
+
+    print(Rfiles)
+    print(path)
+  }
+
   # remove path from Rfiles
   Rfiles <- Rfiles[!stringr::str_detect(string = Rfiles$file_path, pattern = path), ]
 
   prompt <- c(paste("# Content of file", path), "", prompt)
-
 
   for (ff in Rfiles$file_path) {
     filecontent <- c(
