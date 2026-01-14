@@ -37,7 +37,7 @@ complete_current_script <- function() {
   ans <- codestral(
     prompt = prompt_,
     suffix = suffix,
-    path = normalizePath(path = path)
+    path = normalizePath(path = path, winslash = "/")
   )
 
   ans
