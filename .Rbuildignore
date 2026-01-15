@@ -1,11 +1,11 @@
 ^codestral\.Rproj$
 ^\.Rproj\.user$
 ^data-raw$
-^LICENSE\.md$
-^README\.Rmd$
 ^cran-comments\.md$
 ^docs$
 ^\.github$
 ^doc$
 ^Meta$
 ^CRAN-SUBMISSION$
+^LICENSE\.md$
+^README\.md$
