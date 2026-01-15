@@ -47,4 +47,4 @@ vignette("codestral-introduction")
 
 ## License
 
-This package is licensed under the MIT License. See [LICENSE](LICENSE.md) for details.
+This package is licensed under the MIT License. See [LICENSE](https://urbs-dev.github.io/codestral/LICENSE.html) for details.
