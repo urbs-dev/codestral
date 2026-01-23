@@ -1,0 +1,49 @@
+---
+title: "List and function of environment variables created by codestral"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{List and function of environment variables created by codestral}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(codestral)
+```
+
+This vignette is for advanced users, wrongly modifying an environment variable may jeopardize the way `codestral` package works.
+
+The following environment variables are created by the function `codestral_init()`:
+
+- `R_MISTRAL_APIKEY` Contains the API key for Codestral Mamba and other Mistral AI models (except Codestral).
+- `R_CODESTRAL_APIKEY` Contains the API key for Codestral.
+- `R_CODESTRAL_FIM_MODEL` Contains the model to use for FIM.
+- `R_CODESTRAL_CHAT_MODEL` Contains the model to use for Codestral chat.
+- `R_CODESTRAL_MAMBA_MODEL` Contains the model to use for Codestral Mamba chat.
+- `R_CODESTRAL_TEMPERATURE` Contains the temperature to use.
+- `R_CODESTRAL_MAX_TOKENS_FIM` Contains the maximum number of tokens to generate for FIM.
+- `R_CODESTRAL_MAX_TOKENS_CHAT` Contains the maximum number of tokens to generate for chat.
+- `R_CODESTRAL_DEBUG` Takes values `"TRUE"` or `"FALSE"` to activate or deactivate the debug mode.
+- `R_CODESTRAL_DETECT_PACKAGE` Takes values `"TRUE"` or `"FALSE"` to activate or deactivate the detection of a package environment (which is activated by default).
+- `R_CODESTRAL_ROLE_CONTENT` Contains the role content to use.
+
+The following environment variable is modified by the function `debug_mode()`:
+
+- `R_CODESTRAL_DEBUG` 
+
+
+The following environment variable is modified by the function `allow_detect_package()`:
+
+- `R_CODESTRAL_DETECT_PACKAGE`
+
+At any point, during the use of `codestral`, advanded users can modify any of these environment variables using `Sys.setenv()` function. If you plan to modify them permanently, you can use an `.Rprofile` file where `codestral_init()` is executed and after which environment variables are modified.
+
+
+
